@@ -1,0 +1,81 @@
+<!--p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+</p-->
+
+<div class="container mt-4">
+    <h3>Subcategorias de Produtos</h3>
+    <hr />
+
+    <form [formGroup]="formFiltroSubcategoria" (ngSubmit)="findByFilter()">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" formControlName="nome" />
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Pesquisar</button>
+            </div>
+            <div class="col-md-1">
+                <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
+            </div>
+        </div>
+    </form>
+
+    <hr />
+
+    <div class="row">
+        <div class="col-10">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-dark">
+                    <div class="row">
+                        <div class="col-5 h6">Categoria</div>
+                        <div class="col-5 h6">Subcategoria</div>
+                        <div class="col-1 h6"></div>
+                        <div class="col-1 h6"></div>
+                    </div>
+                </li>
+                <li *ngFor="let subcategoria of subcategorias" class="list-group-item">
+                    <div class="row">
+                        <div class="col-5">
+                            {{subcategoria?.categoria?.nome}}
+                        </div>
+                        <div class="col-5">
+                            {{subcategoria?.nome}}
+                        </div>
+                        <div class="col-1">
+                            <i-bs name="pencil-square" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(content, subcategoria)"></i-bs>
+                        </div>
+                        <div class="col-1">
+                            <i-bs name="trash" ngbTooltip="Excluir" (click)="delete(subcategoria)" width="15" height="15"></i-bs>
+                        </div>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-template #content let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modalSubcategoria">{{data.titulo}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formSubcategoria" (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+    </form>
+  </div>
+  
+</ng-template>
+
+
+
+

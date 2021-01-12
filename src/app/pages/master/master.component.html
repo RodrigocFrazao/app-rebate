@@ -1,0 +1,68 @@
+<nav class="navbar  navbar-dark bg-dark flex-row">
+    <a class="navbar-brand mr-auto" href="/">
+        <img src="../../../assets/imgs/logo-rastrecall.png" alt="" width="150">
+    </a>
+    <ul class="navbar-nav flex-row mr-lg-0">
+        <li class="nav-item">
+             <a class="nav-link pr-2"><i class="fa fa-search"></i></a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link pr-3">
+                <i-bs name="person" title="Fabricantes" ngbTooltip="" width="25" height="25"></i-bs>
+            </a>
+        </li>
+    </ul>
+    <button class="navbar-toggler ml-lg-0" type="button" data-toggle="collapse" data-target="#navBarOperations" aria-controls="navBarOperations" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+</nav>
+
+<div class="collapse bg-dark" id="navBarOperations" >
+    <div class="row pt-5 pb-2">
+        <div class="col-3">
+            <a class="text-white pl-3" routerLink="/categoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Categorias de Produtos</a>
+        </div>
+        <div class="col-3">
+            <a class="text-white pl-1" routerLink="/fabricante" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Fabricantes</a>
+        </div>
+        <div class="col">
+            <a class="text-white pl-1" routerLink="/rebate" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Campanhas de Rebate</a>
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-3">
+            <a class="text-white pl-3" routerLink="/subcategoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Subcategorias de Produtos</a>
+        </div>
+        <div class="col-3">
+            <a class="text-white pl-1" routerLink="/linhaProduto" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Linhas de Produtos</a>
+        </div>
+        <div class="col-10">
+            
+        </div>
+    </div>
+    <div class="row pb-2">
+        <div class="col-3">            
+        </div>
+        <div class="col-3">
+            <a class="text-white pl-1" routerLink="/modelo" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Modelos</a>
+        </div>
+        <div class="col-10">            
+        </div>
+    </div>
+    <div class="row pb-4">
+        <div class="col-3">            
+        </div>
+        <div class="col-3">
+            <a class="text-white pl-1" routerLink="/produto" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Produtos</a>
+        </div>
+        <div class="col-10">            
+        </div>
+    </div>
+</div>
+
+<!--div para exibição de mensagens-->
+<p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+</p>
+
+<router-outlet></router-outlet>

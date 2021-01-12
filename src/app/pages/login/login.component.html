@@ -1,0 +1,56 @@
+<nav class="navbar navbar-light bg-dark">
+    <div class="row justify-content-left">
+        <div class="col-6 justify-content-center">
+            <img src="../../../assets/imgs/logo-rastrecall.png" alt="">
+        </div>
+    </div>
+</nav>
+
+
+<p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+</p>
+
+
+<form [formGroup]="formLogin" (ngSubmit)="login()">
+    <div class="row mt-5">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <label for="inputEmail3" class="col-form-label">Email</label>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <input type="email" formControlName="login" class="form-control" id="inputEmail3" placeholder="Login" >
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <label for="inputPassword3" class="col-form-label">Senha</label>
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <input type="password" formControlName="senha" class="form-control" id="inputPassword3" placeholder="Senha">
+        </div>
+        <div class="col-4"></div>
+    </div>
+
+    <div class="row mt-2">
+        <div class="col-4"></div>
+        <div class="col-4  justify-content-center">
+            <button type="submit" class="btn btn-primary">Entrar</button>
+        </div>
+        <div class="col-4"></div>
+    </div>
+    
+  </form>

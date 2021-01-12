@@ -1,0 +1,26 @@
+<!--h1 mat-dialog-title>{{data.title}}</h1>
+<div mat-dialog-content>
+  <p>{{data.message}}</p>
+  
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close (click)="onDismiss()">Cancelar</button>
+  <button mat-raised-button (click)="onConfirm()">Ok</button>
+</div-->
+
+<div class="modal-header">
+  <h4 class="modal-title" id="modal-title">{{data.title}}</h4>
+  <button type="button" class="close" aria-label="Close button" aria-describedby="modal-title" (click)="onDismiss()">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <p><strong>{{data.mainMessage}}<span class="text-primary">{{data.detailMessage}}</span>?</strong></p>
+  <p>{{data.explanation}}
+  <span class="text-danger">{{data.warning}}</span>
+  </p>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-outline-secondary" (click)="onDismiss()">Cancel</button>
+  <button type="button" ngbAutofocus class="btn btn-danger" (click)="onConfirm()">Ok</button>
+</div>
