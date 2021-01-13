@@ -57,23 +57,36 @@
 <ng-template #content let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modalSubcategoria">{{data.titulo}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="formSubcategoria.reset(); modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="formSubcategoria" (ngSubmit)="save()">
         <div class="row">
-            <div class="col-md-6">
-                <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
-            </div>
-            <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Salvar</button>
-            </div>
+            <div class="col-9 h6">Categoria</div>
         </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idCategoria">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-3">
+            <div class="col-9">
+                <input type="text" class="form-control" formControlName="nome" placeholder="Nome"/>
+                <p *ngIf="formSubcategoria.controls.nome.dirty && formSubcategoria.controls.nome.errors" class="text-danger">
+                    Nome inválido
+                </p>
+            </div>
+            <div class="col-1">
+                <button id="btnSubmit" type="submit" class="btn btn-primary" [disabled]="formSubcategoria.invalid">Salvar</button>
+            </div>            
+        </div>        
     </form>
   </div>
-  
 </ng-template>
 
 

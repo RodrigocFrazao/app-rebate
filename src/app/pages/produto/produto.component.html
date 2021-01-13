@@ -65,7 +65,7 @@
 <ng-template #content let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modalProduto">{{data.titulo}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="formProduto.reset(); modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>

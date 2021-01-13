@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { CategoriaDTO } from 'src/models/categoriaDTO';
 import { CategoriaService } from 'src/services/categoria/categoria.service';
@@ -28,7 +28,7 @@ export class CategoriaComponent implements OnInit {
 
   formCategoria: FormGroup = new FormGroup({
     id: new FormControl(''),
-    nome: new FormControl('')
+    nome: new FormControl('', [Validators.required, Validators.maxLength(50)])
   })
 
   formFiltroCategoria: FormGroup = new FormGroup({
@@ -141,7 +141,7 @@ export class CategoriaComponent implements OnInit {
   }
 
   //****************************************************************************/
-  closeResult = '';
+  
   openAddModal(content: any) {
     this.data = {titulo: 'Incluir Categoria'};
     this.modalService.open(content, {ariaLabelledBy: 'modalCategoria'});

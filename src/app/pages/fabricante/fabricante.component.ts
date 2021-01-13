@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup } from '@angular/forms'
+import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { FabricanteDTO } from 'src/models/fabricanteDTO';
 import { FabricanteService } from 'src/services/fabricante/fabricante.service';
@@ -29,7 +29,7 @@ export class FabricanteComponent implements OnInit {
 
   formFabricante: FormGroup = new FormGroup({
     id: new FormControl(''),
-    nome: new FormControl('')
+    nome: new FormControl('', [Validators.required, Validators.maxLength(50)])
   })
 
   formFiltroFabricante: FormGroup = new FormGroup({

@@ -17,13 +17,13 @@ import { ModeloComponent } from './pages/modelo/modelo.component';
 import { FabricanteComponent } from './pages/fabricante/fabricante.component';
 import { RebateComponent } from './pages/rebate/rebate.component';
 
-import { ReactiveFormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http'
 import { HttpConfigInterceptor } from '../interceptor/httpconfig.interceptor';
 import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './pages/util/dialog/confirm-dialog.component';
-
+import { NgSelectModule } from '@ng-select/ng-select';
 
 @NgModule({
   declarations: [
@@ -52,8 +52,9 @@ import { ConfirmDialogComponent } from './pages/util/dialog/confirm-dialog.compo
     HttpClientModule,
     NgbModule,
     NgxBootstrapIconsModule.pick(allIcons),
-    MatDialogModule
-    
+    MatDialogModule,
+    NgSelectModule, 
+    FormsModule     
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: HttpConfigInterceptor, multi: true }

@@ -37,9 +37,23 @@ export class SubcategoriaService {
 
   }
 
-  findByFilter(nome: string) : Observable<SubcategoriaDTO[]> {
+  findByFilter(nome: string, idCategoria: number) : Observable<SubcategoriaDTO[]> {
 
-    return this.http.get<SubcategoriaDTO[]>( API_CONFIG.baseURL+'/subcategorias/filtro?nome='+nome);
+    let url: string = API_CONFIG.baseURL+'/subcategorias/filtro?';
+
+    if(nome != null && nome.trim() != ''){
+      url += 'nome='+nome;
+    }
+
+    if(idCategoria != null && idCategoria != 0){
+
+      if(url.indexOf('nome')>0){
+        url += '&';
+      }
+      url += 'idCategoria='+idCategoria;
+      
+    }
+    return this.http.get<SubcategoriaDTO[]>( url );
 
   }
 

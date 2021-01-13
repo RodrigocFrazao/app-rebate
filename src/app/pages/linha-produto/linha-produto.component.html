@@ -65,18 +65,54 @@
 <ng-template #content let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modalLinhaProduto">{{data.titulo}}</h4>
-    <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+    <button type="button" class="close" aria-label="Close" (click)="formLinhaProduto.reset(); modal.dismiss('Cross click')">
       <span aria-hidden="true">&times;</span>
     </button>
   </div>
   <div class="modal-body">
     <form [formGroup]="formLinhaProduto" (ngSubmit)="save()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-9 h6">Categoria</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idCategoria" (change)="findSubcategoriaByFilter()">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Subcategoria</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idSubcategoria">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{subcategoria.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Fabricante</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idFabricante">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let fabricante of fabricantes" [value]="fabricante.id">{{fabricante.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Linha de Produto</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
                 <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
             </div>
             <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="formLinhaProduto.invalid">Salvar</button>
             </div>
         </div>
     </form>
