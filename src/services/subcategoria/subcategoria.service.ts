@@ -50,7 +50,7 @@ export class SubcategoriaService {
       if(url.indexOf('nome')>0){
         url += '&';
       }
-      url += 'idCategoria='+idCategoria;
+      url += 'categoria='+idCategoria;
       
     }
     return this.http.get<SubcategoriaDTO[]>( url );

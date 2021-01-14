@@ -101,7 +101,7 @@ export class LinhaProdutoComponent implements OnInit {
       this.linhaProdutoService.update(linhaProdutoDTO)
                            .subscribe(response => {
 
-        this.messageService.setSucessMessage('LinhaProduto alterada com sucesso!');
+        this.messageService.setSucessMessage('Linha de Produto alterada com sucesso!');
         this.linhasProdutos.push(response.body);
         this.formLinhaProduto.reset();
       
@@ -117,7 +117,7 @@ export class LinhaProdutoComponent implements OnInit {
       
       this.linhaProdutoService.insert(linhaProdutoDTO).subscribe(response => {
 
-        this.messageService.setSucessMessage('LinhaProduto incluída com sucesso!');
+        this.messageService.setSucessMessage('Linha de Produto incluída com sucesso!');
         this.linhasProdutos.push(response.body);
         this.formLinhaProduto.reset();
       
@@ -130,7 +130,7 @@ export class LinhaProdutoComponent implements OnInit {
 
     } 
     this.modalService.dismissAll();
-    this.findAll();
+    this.findByFilter();
 
   }
 
@@ -155,7 +155,7 @@ export class LinhaProdutoComponent implements OnInit {
       if(dialogResult){
             this.linhaProdutoService.delete(linhaProdutoDTO.id).subscribe(response => {
 
-              this.messageService.setSucessMessage('LinhaProduto excluída com sucesso!');
+              this.messageService.setSucessMessage('Linha de Produto excluída com sucesso!');
               this.findAll();
             },
             error => {
@@ -178,7 +178,7 @@ export class LinhaProdutoComponent implements OnInit {
     //copia os dados do form pra variavel
     const nome: string = this.formFiltroLinhaProduto.get('nome')?.value;
     
-    this.linhaProdutoService.findByFilter(nome).subscribe(listaLinhaProdutos => this.linhasProdutos = listaLinhaProdutos);
+    this.linhaProdutoService.findByFilter(nome,0,0).subscribe(listaLinhaProdutos => this.linhasProdutos = listaLinhaProdutos);
   }
 
   //****************************************************************************/
@@ -187,7 +187,6 @@ export class LinhaProdutoComponent implements OnInit {
     //copia os dados do form pra variavel
     const idCategoria: number = this.formLinhaProduto.get('idCategoria')?.value;
     
-
     this.subcategoriaService.findByFilter('', idCategoria).subscribe(listaSubcategorias => this.subcategorias = listaSubcategorias);
   }
 
@@ -202,6 +201,17 @@ export class LinhaProdutoComponent implements OnInit {
     this.data = {titulo: 'Alterar LinhaProduto'};
 
     this.formLinhaProduto.setValue({id: linhaProdutoDTO.id, nome: linhaProdutoDTO.nome});
+
+    this.formLinhaProduto.setValue({
+      id: linhaProdutoDTO.id, 
+      nome: linhaProdutoDTO.nome,
+      idCategoria: linhaProdutoDTO.subcategoria.categoria.id,
+      idSubcategoria: linhaProdutoDTO.subcategoria.id,
+      idFabricante: linhaProdutoDTO.fabricante.id
+    });
+
+    this.findSubcategoriaByFilter();
+    
     this.modalService.open(content, {ariaLabelledBy: 'modalLinhaProduto'});
   }
 

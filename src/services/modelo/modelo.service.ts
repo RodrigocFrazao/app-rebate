@@ -37,9 +37,28 @@ export class ModeloService {
 
   }
 
-  findByFilter(nome: string) : Observable<ModeloDTO[]> {
+  findByFilter( nome: string
+              , idLinhaProduto: number) : Observable<ModeloDTO[]> {
 
-    return this.http.get<ModeloDTO[]>( API_CONFIG.baseURL+'/modelos/filtro?nome='+nome);
+    
+      let url: string = API_CONFIG.baseURL+'/modelos/filtro?';
+
+      if(nome != null && nome.trim() != ''){
+        url += 'nome='+nome;
+      }
+
+      
+      if(idLinhaProduto != null && idLinhaProduto != 0){
+
+        //verifica se adicionou o parâmetro nome ou subcategoria
+        if(url.indexOf('nome')>0){
+          url += '&';
+        }
+        url += 'linhaproduto='+idLinhaProduto;
+      
+      } 
+
+      return this.http.get<ModeloDTO[]>( url );
 
   }
 
@@ -48,5 +67,7 @@ export class ModeloService {
     return this.http.delete<void>( `${API_CONFIG.baseURL}${'/modelos/'}${id}`);
 
   }
+
+  
 
 }

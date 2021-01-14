@@ -37,9 +37,35 @@ export class LinhaProdutoService {
 
   }
 
-  findByFilter(nome: string) : Observable<LinhaProdutoDTO[]> {
+  findByFilter(nome: string, idSubcategoria: number, idFabricante: number) : Observable<LinhaProdutoDTO[]> {
 
-    return this.http.get<LinhaProdutoDTO[]>( API_CONFIG.baseURL+'/linhasprodutos/filtro?nome='+nome);
+    let url: string = API_CONFIG.baseURL+'/linhasprodutos/filtro?';
+
+    if(nome != null && nome.trim() != ''){
+      url += 'nome='+nome;
+    }
+
+    if(idSubcategoria != null && idSubcategoria != 0){
+
+      //verifica se adicionou o parâmetro nome
+      if(url.indexOf('nome')>0){
+        url += '&';
+      }
+      url += 'subcategoria='+idSubcategoria;
+      
+    }
+
+    if(idFabricante != null && idFabricante != 0){
+
+      //verifica se adicionou o parâmetro nome ou subcategoria
+      if(url.indexOf('nome')>0 || url.indexOf('subcategoria')>0){
+        url += '&';
+      }
+      url += 'fabricante='+idFabricante;
+      
+    }
+
+    return this.http.get<LinhaProdutoDTO[]>( url );
 
   }
 
