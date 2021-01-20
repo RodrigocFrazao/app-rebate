@@ -6,38 +6,44 @@
     <h3>Produtos</h3>
     <hr />
 
+    <!--*********************FILTRO*******************************************-->
     <form [formGroup]="formFiltroProduto" (ngSubmit)="findByFilter()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
                 <input type="text" class="form-control" formControlName="nome" />
             </div>
-            <div class="col-md-1">
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
-            </div>
-            <div class="col-md-1">
-                <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
+                <button type="button" class="btn btn-primary ml-1" (click)="openAddProduto(modalProduto)">+</button>
             </div>
         </div>
     </form>
 
     <hr />
-
+    <!--**************************LISTA DE PRODUTOS******************************************-->
     <div class="row">
         <div class="col">
-            <ul class="list-group list-group-flush">
+            <ul *ngFor="let produto of produtos" class="list-group list-group-flush">
                 <li class="list-group-item list-group-item-dark">
                     <div class="row">
-                        <div class="col-2 h6">Fabricante</div>
+                        <div class="col-1 h6">Categoria</div>
+                        <div class="col-2 h6">Subcategoria</div>
+                        <div class="col-1 h6">Fabricante</div>
                         <div class="col-2 h6">Linha de Produto</div>
                         <div class="col-2 h6">Modelo</div>
-                        <div class="col-4 h6">Produto</div>
-                        <div class="col-1 h6"></div>
-                        <div class="col-1 h6"></div>
+                        <div class="col-3 h6">Produto</div>
+                        <div class="col-1 h6"></div>                        
                     </div>
                 </li>
-                <li *ngFor="let produto of produtos" class="list-group-item">
+                <li class="list-group-item">
                     <div class="row">
-                        <div class="col-2">
+                        <div class="col-1">
+                            {{produto?.modelo?.linhaProduto?.subcategoria?.categoria?.nome}}
+                        </div>
+                        <div class="col-2 fs-1">
+                            {{produto?.modelo?.linhaProduto?.subcategoria?.nome}}
+                        </div>
+                        <div class="col-1">
                             {{produto?.modelo?.linhaProduto?.fabricante?.nome}}
                         </div>
                         <div class="col-2">
@@ -46,23 +52,51 @@
                         <div class="col-2">
                             {{produto?.modelo?.nome}}
                         </div>
-                        <div class="col-4">
+                        <div class="col-3">
                             {{produto?.nome}}
                         </div>
                         <div class="col-1">
-                            <i-bs name="pencil-square" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(content, produto)"></i-bs>
-                        </div>
-                        <div class="col-1">
+                            <i-bs name="pencil-square" class="mr-2" ngbTooltip="Editar" width="15" height="15" (click)="openEditProduto(modalProduto, produto)"></i-bs>
                             <i-bs name="trash" ngbTooltip="Excluir" (click)="delete(produto)" width="15" height="15"></i-bs>
                         </div>
                     </div>
+                    <!--*********CÓDIGOS DE BARRAS DO PRODUTO******-->
+                    <div class="row mt-3">
+                            <div class="col-1"></div>
+                            <div class="col-2"></div>
+                            <div class="col-1"></div>
+                            <div class="col-2"></div>
+                            <div class="col-2"></div>
+                            <div class="col-4 h6 list-group-item-dark" >
+                                <p class="mt-2"><i-bs name="upc" ngbTooltip="Incluir código de barras" width="25" height="25"></i-bs>
+                                    Códigos Barras
+                                    <button type="button" class="btn btn-secondary btn-sm mb-1 float-right" (click)="openAddCodigoBarras(modalCodigoBarras, produto)">+</button>
+                                </p>
+                            </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-1"></div>
+                        <div class="col-2"></div>
+                        <div class="col-1"></div>
+                        <div class="col-2"></div>
+                        <div class="col-2"></div>
+                        <div class="col-4">
+                            <p *ngFor="let codigoBarras of produto.codigosBarras">
+                                {{codigoBarras.codigo}}
+                                <i-bs name="pencil-square" class="ml-2 mr-2" ngbTooltip="Editar" width="15" height="15" (click)="openEditCodigoBarras(modalCodigoBarras, produto, codigoBarras)"></i-bs>
+                                <i-bs name="trash" ngbTooltip="Excluir" (click)="deleteCodigoBarras(codigoBarras)" width="15" height="15"></i-bs>
+                            </p>
+                        </div>
+                        
+                    </div>                    
                 </li>
             </ul>
         </div>
     </div>
 </div>
 
-<ng-template #content let-modal>
+<!--**************MODAL DE INCÇUSÃO EDIÇÃO DE PRODUTOS*******************************-->
+<ng-template #modalProduto let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modalProduto">{{data.titulo}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="formProduto.reset(); modal.dismiss('Cross click')">
@@ -72,17 +106,109 @@
   <div class="modal-body">
     <form [formGroup]="formProduto" (ngSubmit)="save()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-9 h6">Categoria</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idCategoria" (change)="formProduto.controls.idSubcategoria.reset(); findSubcategoriaByFilter()">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Subcategoria</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idSubcategoria" (change)="formProduto.controls.idLinhaProduto.reset(); findLinhaProdutoByFilter()">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let subcategoria of subcategorias" [value]="subcategoria.id">{{subcategoria.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Fabricante</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idFabricante" (change)="formProduto.controls.idLinhaProduto.reset(); findLinhaProdutoByFilter()">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let fabricante of fabricantes" [value]="fabricante.id">{{fabricante.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Linha de Produto</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idLinhaProduto" (change)="formProduto.controls.idModelo.reset(); findModeloByFilter()">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let linhaProduto of linhasProdutos" [value]="linhaProduto.id">{{linhaProduto.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Modelo</div>
+        </div>
+        <div class="row">
+            <div class="col-9">
+                <ng-select class="form-control"  formControlName="idModelo">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let modelo of modelos" [value]="modelo.id">{{modelo.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Produto</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
                 <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
             </div>
             <div class="col-md-1">
                 <button type="submit" class="btn btn-primary">Salvar</button>
             </div>
         </div>
+        
     </form>
   </div>
   
 </ng-template>
+
+<!--**************MODAL DE INCLUSÃO E EDIÇÃO DE CÓDIGO DE BARRAS*******************************-->
+<ng-template #modalCodigoBarras let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modalProduto">{{data.titulo}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="formProduto.reset(); modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formProduto" (ngSubmit)="saveCodigoBarras()">
+        <div class="row">
+            <div class="col-9">
+                {{formProduto.controls.nome.value}}                 
+            </div>
+        </div>
+        <div class="row mt-4">
+            <div class="col-9 h6">Código de Barras</div>
+        </div>
+        <div class="row">
+            <div class="col-md-9">
+                <input type="text" class="form-control" formControlName="codigoBarras" ngbAutofocus />
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary">Salvar</button>
+            </div>
+        </div>
+        
+    </form>
+  </div>
+  
+</ng-template>
+
 
 
 

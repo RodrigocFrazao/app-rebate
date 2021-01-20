@@ -8,33 +8,31 @@
 
     <form [formGroup]="formFiltroCategoria" (ngSubmit)="findByFilter()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
                 <input type="text" class="form-control" formControlName="nome" />
             </div>
-            <div class="col-md-1">
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
-            </div>
-            <div class="col-md-1">
                 <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
-            </div>
+            </div>           
         </div>
     </form>
 
     <hr />
 
     <div class="row">
-        <div class="col-md-6">
+        <div class="col-7">
             <ul class="list-group list-group-flush">
                 <li class="list-group-item list-group-item-dark">
                     <div class="row">
-                        <div class="col-10 h6">Categoria</div>
+                        <div class="col-9 h6">Categoria</div>
                         <div class="col-1 h6"></div>
                         <div class="col-1 h6"></div>
                     </div>
                 </li>
                 <li *ngFor="let categoria of categorias" class="list-group-item">
                     <div class="row">
-                        <div class="col-10">
+                        <div class="col-9">
                             {{categoria?.nome}}
                         </div>
                         <div class="col-1">

@@ -102,7 +102,6 @@ export class LinhaProdutoComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Linha de Produto alterada com sucesso!');
-        this.linhasProdutos.push(response.body);
         this.formLinhaProduto.reset();
       
       },
@@ -118,7 +117,6 @@ export class LinhaProdutoComponent implements OnInit {
       this.linhaProdutoService.insert(linhaProdutoDTO).subscribe(response => {
 
         this.messageService.setSucessMessage('Linha de Produto incluída com sucesso!');
-        this.linhasProdutos.push(response.body);
         this.formLinhaProduto.reset();
       
       },
@@ -156,7 +154,7 @@ export class LinhaProdutoComponent implements OnInit {
             this.linhaProdutoService.delete(linhaProdutoDTO.id).subscribe(response => {
 
               this.messageService.setSucessMessage('Linha de Produto excluída com sucesso!');
-              this.findAll();
+              this.findByFilter();
             },
             error => {
               this.messageService.setErrorMesage(error);

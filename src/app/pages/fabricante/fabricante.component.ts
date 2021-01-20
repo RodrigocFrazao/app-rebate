@@ -61,7 +61,6 @@ export class FabricanteComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Fabricante alterado com sucesso!');
-        this.fabricantes.push(response.body);
         this.formFabricante.reset();
       
       },
@@ -78,7 +77,6 @@ export class FabricanteComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Fabricante incluído com sucesso!');
-        this.fabricantes.push(response.body);
         this.formFabricante.reset();
       
       },
@@ -90,7 +88,7 @@ export class FabricanteComponent implements OnInit {
 
     } 
     this.modalService.dismissAll();
-    this.findAll();
+    this.findByFilter();
 
   }
 
@@ -116,7 +114,7 @@ export class FabricanteComponent implements OnInit {
             this.fabricanteService.delete(fabricanteDTO.id).subscribe(response => {
 
               this.messageService.setSucessMessage('Fabricante excluído com sucesso!');
-              this.findAll();
+              this.findByFilter();
             },
             error => {
               this.messageService.setErrorMesage(error);

@@ -60,7 +60,6 @@ export class CategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Categoria alterada com sucesso!');
-        this.categorias.push(response.body);
         this.formCategoria.reset();
       
       },
@@ -77,7 +76,6 @@ export class CategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Categoria incluída com sucesso!');
-        this.categorias.push(response.body);
         this.formCategoria.reset();
       
       },
@@ -89,7 +87,7 @@ export class CategoriaComponent implements OnInit {
 
     } 
     this.modalService.dismissAll();
-    this.findAll();
+    this.findByFilter();
 
   }
 
@@ -115,7 +113,7 @@ export class CategoriaComponent implements OnInit {
             this.categoriaService.delete(categoriaDTO.id).subscribe(response => {
 
               this.messageService.setSucessMessage('Categoria excluída com sucesso!');
-              this.findAll();
+              this.findByFilter();
             },
             error => {
               this.messageService.setErrorMesage(error);

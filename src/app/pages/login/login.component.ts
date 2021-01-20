@@ -56,7 +56,7 @@ export class LoginComponent implements OnInit {
           this.goToHome();
         },
         error => {
-
+          
           let errorObj = error;
           if (errorObj.error) {
             errorObj = errorObj.error;
@@ -70,7 +70,16 @@ export class LoginComponent implements OnInit {
 
           msg += errorObj.message;
 
-          this.alerts = [{type: 'warning',message: msg}];
+          if(error.message.indexOf('Http failure response')>=0){
+            //banco de dados fora do ar ou falha na rede
+
+            msg = 'Erro na conexão com o serviço de autenticação.'
+            this.alerts = [{type: 'danger',message: msg}];
+          }else{
+            this.alerts = [{type: 'warning',message: msg}];
+          }
+
+          
           
         })    
   }

@@ -37,6 +37,12 @@ export class ProdutoService {
 
   }
 
+  find(id: number) : Observable<ProdutoDTO> {
+
+    return this.http.get<ProdutoDTO>( API_CONFIG.baseURL+'/produtos/' + id);
+
+  }
+
   findByFilter(nome: string) : Observable<ProdutoDTO[]> {
 
     return this.http.get<ProdutoDTO[]>( API_CONFIG.baseURL+'/produtos/filtro?nome='+nome);

@@ -8,13 +8,11 @@
 
     <form [formGroup]="formFiltroModelo" (ngSubmit)="findByFilter()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
                 <input type="text" class="form-control" formControlName="nome" />
             </div>
-            <div class="col-md-1">
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
-            </div>
-            <div class="col-md-1">
                 <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
             </div>
         </div>

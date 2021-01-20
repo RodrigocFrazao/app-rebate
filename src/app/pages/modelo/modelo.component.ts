@@ -117,7 +117,6 @@ export class ModeloComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Modelo alterado com sucesso!');
-        this.modelos.push(response.body);
         this.formModelo.reset();
       
       },
@@ -134,7 +133,6 @@ export class ModeloComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Modelo incluído com sucesso!');
-        this.modelos.push(response.body);
         this.formModelo.reset();
       
       },
@@ -172,7 +170,7 @@ export class ModeloComponent implements OnInit {
             this.modeloService.delete(modeloDTO.id).subscribe(response => {
 
               this.messageService.setSucessMessage('Modelo excluído com sucesso!');
-              this.findAll();
+              this.findByFilter();
             },
             error => {
               this.messageService.setErrorMesage(error);

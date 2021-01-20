@@ -1,4 +1,4 @@
-<nav class="navbar  navbar-dark bg-dark flex-row">
+<nav class="navbar  navbar-dark bg-dark flex-row shadow">
     <a class="navbar-brand mr-auto" href="/">
         <img src="../../../assets/imgs/logo-rastrecall.png" alt="" width="150">
     </a>
@@ -8,7 +8,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link pr-3">
-                <i-bs name="person" title="Fabricantes" ngbTooltip="" width="25" height="25"></i-bs>
+                <i-bs name="person" title="Meus dados" ngbTooltip="" width="25" height="25"></i-bs>
             </a>
         </li>
     </ul>
@@ -16,46 +16,46 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
-
 <div class="collapse bg-dark" id="navBarOperations" >
+    
     <div class="row pt-5 pb-2">
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-3" routerLink="/categoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Categorias de Produtos</a>
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-1" routerLink="/fabricante" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Fabricantes</a>
         </div>
         <div class="col">
-            <a class="text-white pl-1" routerLink="/rebate" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Campanhas de Rebate</a>
+            <!--a class="text-white pl-1" routerLink="/rebate" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Campanhas de Rebate</a-->
         </div>
     </div>
     <div class="row pb-2">
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-3" routerLink="/subcategoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Subcategorias de Produtos</a>
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-1" routerLink="/linhaProduto" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Linhas de Produtos</a>
         </div>
-        <div class="col-10">
+        <div class="col">
             
         </div>
     </div>
     <div class="row pb-2">
-        <div class="col-3">            
+        <div class="col-4">            
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-1" routerLink="/modelo" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Modelos</a>
         </div>
-        <div class="col-10">            
+        <div class="col">            
         </div>
     </div>
     <div class="row pb-4">
-        <div class="col-3">            
+        <div class="col-4">            
         </div>
-        <div class="col-3">
+        <div class="col-4">
             <a class="text-white pl-1" routerLink="/produto" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Produtos</a>
         </div>
-        <div class="col-10">            
+        <div class="col">            
         </div>
     </div>
 </div>

@@ -8,13 +8,11 @@
 
     <form [formGroup]="formFiltroLinhaProduto" (ngSubmit)="findByFilter()">
         <div class="row">
-            <div class="col-md-6">
+            <div class="col-6">
                 <input type="text" class="form-control" formControlName="nome" />
             </div>
-            <div class="col-md-1">
+            <div class="col">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
-            </div>
-            <div class="col-md-1">
                 <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
             </div>
         </div>
@@ -76,7 +74,7 @@
         </div>
         <div class="row">
             <div class="col-9">
-                <ng-select class="form-control"  formControlName="idCategoria" (change)="findSubcategoriaByFilter()">
+                <ng-select class="form-control"  formControlName="idCategoria" (change)="formLinhaProduto.controls.idSubcategoria.reset(); findSubcategoriaByFilter()">
                     <ng-option selected disabled value="">Selecione</ng-option>
                     <ng-option *ngFor="let categoria of categorias" [value]="categoria.id">{{categoria.nome}}</ng-option>
                 </ng-select>                

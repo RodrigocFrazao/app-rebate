@@ -76,7 +76,6 @@ export class SubcategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Subcategoria alterada com sucesso!');
-        this.subcategorias.push(response.body);
         
       
       },
@@ -93,9 +92,7 @@ export class SubcategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Subcategoria incluída com sucesso!');
-        this.subcategorias.push(response.body);
         
-      
       },
       error => {
 
@@ -133,7 +130,7 @@ export class SubcategoriaComponent implements OnInit {
             this.subcategoriaService.delete(subcategoriaDTO.id).subscribe(response => {
 
               this.messageService.setSucessMessage('Subcategoria excluída com sucesso!');
-              this.findAll();
+              this.findByFilter();
             },
             error => {
               this.messageService.setErrorMesage(error);
