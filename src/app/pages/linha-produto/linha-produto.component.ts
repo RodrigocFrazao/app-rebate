@@ -102,7 +102,11 @@ export class LinhaProdutoComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Linha de Produto alterada com sucesso!');
-        this.formLinhaProduto.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -117,7 +121,11 @@ export class LinhaProdutoComponent implements OnInit {
       this.linhaProdutoService.insert(linhaProdutoDTO).subscribe(response => {
 
         this.messageService.setSucessMessage('Linha de Produto incluída com sucesso!');
-        this.formLinhaProduto.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -127,9 +135,10 @@ export class LinhaProdutoComponent implements OnInit {
       });   
 
     } 
-    this.modalService.dismissAll();
-    this.findByFilter();
 
+    this.formLinhaProduto.reset();
+    this.modalService.dismissAll();
+    
   }
 
   //****************************************************************************/

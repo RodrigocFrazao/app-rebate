@@ -61,7 +61,11 @@ export class FabricanteComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Fabricante alterado com sucesso!');
-        this.formFabricante.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -77,7 +81,11 @@ export class FabricanteComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Fabricante incluído com sucesso!');
-        this.formFabricante.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -87,8 +95,9 @@ export class FabricanteComponent implements OnInit {
       });   
 
     } 
-    this.modalService.dismissAll();
-    this.findByFilter();
+
+    this.formFabricante.reset();
+    this.modalService.dismissAll();    
 
   }
 

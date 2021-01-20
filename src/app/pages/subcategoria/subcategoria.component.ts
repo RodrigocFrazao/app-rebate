@@ -77,6 +77,10 @@ export class SubcategoriaComponent implements OnInit {
 
         this.messageService.setSucessMessage('Subcategoria alterada com sucesso!');
         
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -93,6 +97,11 @@ export class SubcategoriaComponent implements OnInit {
 
         this.messageService.setSucessMessage('Subcategoria incluída com sucesso!');
         
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
+
       },
       error => {
 
@@ -104,7 +113,7 @@ export class SubcategoriaComponent implements OnInit {
     
     this.formSubcategoria.reset();
     this.modalService.dismissAll();
-    this.findByFilter();
+    
 
   }
 

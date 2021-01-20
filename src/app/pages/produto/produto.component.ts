@@ -141,6 +141,11 @@ export class ProdutoComponent implements OnInit {
                          .subscribe(response => {
 
         this.messageService.setSucessMessage('Produto alterado com sucesso!');
+
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
               
       },
       error => {
@@ -156,6 +161,11 @@ export class ProdutoComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Produto incluído com sucesso!');
+
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
               
       },
       error => {
@@ -167,10 +177,7 @@ export class ProdutoComponent implements OnInit {
     
     this.modalService.dismissAll();
     this.formProduto.reset();
-    this.findByFilter();
     
-        
-
   }
 
   //****************************************************************************/
@@ -194,7 +201,11 @@ export class ProdutoComponent implements OnInit {
                               .subscribe(response => {
 
         this.messageService.setSucessMessage('Código de barras alterado com sucesso!');
-        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
+
       },
       error => {
 
@@ -209,7 +220,10 @@ export class ProdutoComponent implements OnInit {
                               .subscribe(response => {
 
         this.messageService.setSucessMessage('Código de Barras incluído com sucesso!');
-        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -222,7 +236,7 @@ export class ProdutoComponent implements OnInit {
     
     this.formProduto.reset();
     this.modalService.dismissAll();
-    this.findByFilter();
+    
 
   }
 
@@ -330,7 +344,6 @@ export class ProdutoComponent implements OnInit {
 
     //copia os dados do form pra variavel
     const nome: string = this.formFiltroProduto.get('nome')?.value;
-    console.log('nome do filtro ' + nome);
     this.produtoService.findByFilter(nome).subscribe(listaProdutos => this.produtos = listaProdutos);
   }
 

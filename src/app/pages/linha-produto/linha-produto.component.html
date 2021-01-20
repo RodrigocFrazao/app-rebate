@@ -13,7 +13,7 @@
             </div>
             <div class="col">
                 <button type="submit" class="btn btn-primary">Pesquisar</button>
-                <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(content)">+</button>
+                <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(modalLinhaProduto)">+</button>
             </div>
         </div>
     </form>
@@ -48,7 +48,7 @@
                             {{linhaProduto?.nome}}
                         </div>
                         <div class="col-1">
-                            <i-bs name="pencil-square" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(content, linhaProduto)"></i-bs>
+                            <i-bs name="pencil-square" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(modalLinhaProduto, linhaProduto)"></i-bs>
                         </div>
                         <div class="col-1">
                             <i-bs name="trash" ngbTooltip="Excluir" (click)="delete(linhaProduto)" width="15" height="15"></i-bs>
@@ -60,7 +60,7 @@
     </div>
 </div>
 
-<ng-template #content let-modal>
+<ng-template #modalLinhaProduto let-modal>
     <div class="modal-header">
     <h4 class="modal-title" id="modalLinhaProduto">{{data.titulo}}</h4>
     <button type="button" class="close" aria-label="Close" (click)="formLinhaProduto.reset(); modal.dismiss('Cross click')">

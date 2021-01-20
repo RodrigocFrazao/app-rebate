@@ -117,7 +117,11 @@ export class ModeloComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Modelo alterado com sucesso!');
-        this.formModelo.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -133,7 +137,11 @@ export class ModeloComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Modelo incluído com sucesso!');
-        this.formModelo.reset();
+        
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -143,8 +151,10 @@ export class ModeloComponent implements OnInit {
       });   
 
     } 
+
+    this.formModelo.reset();
     this.modalService.dismissAll();
-    this.findByFilter();
+    
 
   }
 

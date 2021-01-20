@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
 import { Router } from '@angular/router';
 import { CategoriaDTO } from 'src/models/categoriaDTO';
@@ -36,8 +36,7 @@ export class CategoriaComponent implements OnInit {
   })
   
   //****************************************************************************/
-  constructor( private router: Router
-             , private categoriaService: CategoriaService
+  constructor( private categoriaService: CategoriaService
              , private messageService: MessageService
              , private dialog: MatDialog, private modalService: NgbModal) { }
 
@@ -60,7 +59,11 @@ export class CategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Categoria alterada com sucesso!');
-        this.formCategoria.reset();
+                
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -76,7 +79,11 @@ export class CategoriaComponent implements OnInit {
                            .subscribe(response => {
 
         this.messageService.setSucessMessage('Categoria incluída com sucesso!');
-        this.formCategoria.reset();
+                
+        //só chamar o findByFilter após receber a resposta da api
+        while(!response){          
+        }
+        this.findByFilter();
       
       },
       error => {
@@ -86,8 +93,9 @@ export class CategoriaComponent implements OnInit {
       });   
 
     } 
-    this.modalService.dismissAll();
-    this.findByFilter();
+
+    this.formCategoria.reset();
+    this.modalService.dismissAll();    
 
   }
 
@@ -135,7 +143,9 @@ export class CategoriaComponent implements OnInit {
     //copia os dados do form pra variavel
     const nome: string = this.formFiltroCategoria.get('nome')?.value;
     
-    this.categoriaService.findByFilter(nome).subscribe(listaCategorias => this.categorias = listaCategorias);
+    this.categoriaService.findByFilter(nome).subscribe(listaCategorias => {
+      this.categorias = listaCategorias;
+    });
   }
 
   //****************************************************************************/
