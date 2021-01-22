@@ -29,8 +29,7 @@
                         <div class="col-2 h6">Subcategoria</div>
                         <div class="col-2 h6">Fabricante</div>
                         <div class="col-4 h6">Linha de Produto</div>
-                        <div class="col-1 h6"></div>
-                        <div class="col-1 h6"></div>
+                        <div class="col h6"></div>
                     </div>
                 </li>
                 <li *ngFor="let linhaProduto of linhasProdutos" class="list-group-item">
@@ -47,11 +46,10 @@
                         <div class="col-4">
                             {{linhaProduto?.nome}}
                         </div>
-                        <div class="col-1">
-                            <i-bs name="pencil-square" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(modalLinhaProduto, linhaProduto)"></i-bs>
-                        </div>
-                        <div class="col-1">
-                            <i-bs name="trash" ngbTooltip="Excluir" (click)="delete(linhaProduto)" width="15" height="15"></i-bs>
+                        <div class="col">
+                            <i-bs name="pencil-square" class="float-right" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(modalLinhaProduto, linhaProduto)"></i-bs>
+                            <span class="float-right">&nbsp;&nbsp;</span>
+                            <i-bs name="trash" class="float-right" ngbTooltip="Excluir" (click)="delete(linhaProduto)" width="15" height="15"></i-bs>
                         </div>
                     </div>
                 </li>

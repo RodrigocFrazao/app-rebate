@@ -11,6 +11,7 @@ import { LinhaProdutoComponent } from './pages/linha-produto/linha-produto.compo
 import { ModeloComponent } from './pages/modelo/modelo.component';
 import { ProdutoComponent } from './pages/produto/produto.component';
 import { RebateComponent } from './pages/rebate/rebate.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginComponent },
@@ -25,7 +26,8 @@ const routes: Routes = [
       { path: 'linhaProduto', component: LinhaProdutoComponent },
       { path: 'modelo', component: ModeloComponent },
       { path: 'produto', component: ProdutoComponent },
-      { path: 'rebate', component: RebateComponent },
+      { path: 'usuario', component: UsuarioComponent },
+      { path: 'rebate', component: RebateComponent },      
     ],
   },
 ];

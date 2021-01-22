@@ -1,0 +1,123 @@
+<!--p *ngFor="let alert of alerts">
+    <ngb-alert [type]="alert.type" (closed)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
+</p-->
+
+<div class="container mt-4">
+    <h3>Usuários do Sistema</h3>
+    <hr />
+
+    <form [formGroup]="formFiltroUsuario" (ngSubmit)="findByFilter()">
+        <div class="row">
+            <div class="col-6">
+                <input type="text" class="form-control" formControlName="nome" />
+            </div>
+            <div class="col">
+                <button type="submit" class="btn btn-primary">Pesquisar</button>
+                <button type="button" class="btn btn-primary ml-1" (click)="openAddModal(modalUsuario)">+</button>
+            </div>           
+        </div>
+    </form>
+
+    <hr />
+
+    <div class="row">
+        <div class="col">
+            <ul class="list-group list-group-flush">
+                <li class="list-group-item list-group-item-dark">
+                    <div class="row">
+                        <div class="col-4 h6">Nome</div>
+                        <div class="col-2 h6">Login</div>
+                        <div class="col-2 h6">Perfil</div>
+                        <div class="col-2 h6">Status</div>
+                        <div class="col h6"></div>
+                    </div>
+                </li>
+                <li *ngFor="let usuario of usuarios" class="list-group-item">
+                    <div class="row">
+                        <div class="col-4">
+                            {{usuario?.nome}}
+                        </div>
+                        <div class="col-2">
+                            {{usuario?.login}}
+                        </div>
+                        <div class="col-2">
+                            {{usuario?.codigoPerfil}}
+                        </div>
+                        <div class="col-2">
+                            <ng-template [ngIf]="usuario?.isAtivo" [ngIfThen]="thenBlock" [ngIfElse]="elseBlock">
+                                This content is never showing
+                            </ng-template>
+                            <ng-template #thenBlock>
+                                Ativo
+                            </ng-template>
+                            <ng-template #elseBlock>
+                                Inativo
+                            </ng-template>             
+                        </div>
+                        <div class="col">
+                            <i-bs name="pencil-square" class="float-right" ngbTooltip="Editar" width="15" height="15" (click)="openEditModal(modalUsuario, usuario)"></i-bs>
+                            <span class="float-right">&nbsp;&nbsp;</span>
+                            <i-bs name="trash" class="float-right" ngbTooltip="Excluir" (click)="delete(usuario)" width="15" height="15"></i-bs>
+                        </div>                        
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<ng-template #modalUsuario let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modalUsuario">{{data.titulo}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="formUsuario.reset(); modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body">
+    <form [formGroup]="formUsuario" (ngSubmit)="save()">
+        <div class="row">
+            <div class="col-md-6 h6">Nome</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
+                <p *ngIf="formUsuario.controls.nome.dirty && formUsuario.controls.nome.errors" class="text-danger">
+                    Nome inválido
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 h6">Login</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="text" class="form-control" formControlName="login" ngbAutofocus />
+                <p *ngIf="formUsuario.controls.login.dirty && formUsuario.controls.login.errors" class="text-danger">
+                    Login inválido
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 h6">Perfil</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <ng-select class="form-control"  formControlName="codigoPerfil">
+                    <ng-option selected disabled value="">Selecione</ng-option>
+                    <ng-option *ngFor="let perfil of perfis" [value]="perfil.codigo">{{perfil.nome}}</ng-option>
+                </ng-select>                
+            </div>                      
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary" [disabled]="formUsuario.invalid">Salvar</button>
+            </div>
+        </div>
+    </form>
+  </div>
+  
+</ng-template>
+
+
+
+

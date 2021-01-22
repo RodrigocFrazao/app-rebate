@@ -15,6 +15,7 @@ import { ProdutoComponent } from './pages/produto/produto.component';
 import { LinhaProdutoComponent } from './pages/linha-produto/linha-produto.component';
 import { ModeloComponent } from './pages/modelo/modelo.component';
 import { FabricanteComponent } from './pages/fabricante/fabricante.component';
+import { UsuarioComponent } from './pages/usuario/usuario.component';
 import { RebateComponent } from './pages/rebate/rebate.component';
 
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
@@ -24,6 +25,7 @@ import { NgxBootstrapIconsModule, allIcons } from 'ngx-bootstrap-icons';
 import { MatDialogModule } from '@angular/material/dialog';
 import { ConfirmDialogComponent } from './pages/util/dialog/confirm-dialog.component';
 import { NgSelectModule } from '@ng-select/ng-select';
+
 
 @NgModule({
   declarations: [
@@ -39,7 +41,8 @@ import { NgSelectModule } from '@ng-select/ng-select';
     ModeloComponent,
     FabricanteComponent,
     RebateComponent,
-    ConfirmDialogComponent,        
+    ConfirmDialogComponent,
+    UsuarioComponent,        
   ],
   entryComponents: [
     ConfirmDialogComponent
