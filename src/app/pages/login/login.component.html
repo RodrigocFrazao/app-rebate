@@ -12,11 +12,11 @@
 </p>
 
 
-<form [formGroup]="formLogin" (ngSubmit)="login()">
+<form [formGroup]="formLogin" (ngSubmit)="login(modalPrimeiroAcesso)">
     <div class="row mt-5 ">
         <div class="col-4"></div>
         <div class="col-4">
-            <label for="inputEmail3" class="col-form-label">Email</label>
+            <label for="inputEmail3" class="col-form-label">Login ou e-mail</label>
         </div>
         <div class="col-4"></div>
     </div>
@@ -24,7 +24,10 @@
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
-            <input type="email" formControlName="login" class="form-control" id="inputEmail3" placeholder="Login" >
+            <input type="text" formControlName="login" class="form-control" id="inputEmail3" placeholder="nome@empresa" >
+            <p *ngIf="formLogin.controls.login.dirty && formLogin.controls.login.errors" class="text-danger">
+                Login/E-mail inválido
+            </p>
         </div>
         <div class="col-4"></div>
     </div>
@@ -41,6 +44,9 @@
         <div class="col-4"></div>
         <div class="col-4">
             <input type="password" formControlName="senha" class="form-control" id="inputPassword3" placeholder="Senha">
+            <p *ngIf="formLogin.controls.senha.dirty && formLogin.controls.senha.errors" class="text-danger">
+                Senha inválida
+            </p>
         </div>
         <div class="col-4"></div>
     </div>
@@ -48,9 +54,75 @@
     <div class="row mt-2">
         <div class="col-4"></div>
         <div class="col-4  justify-content-center">
-            <button type="submit" class="btn btn-primary">Entrar</button>
+            <button type="submit" class="btn btn-primary" [disabled]="formLogin.invalid">Entrar</button>
         </div>
         <div class="col-4"></div>
     </div>
     
   </form>
+
+
+
+  <ng-template #modalPrimeiroAcesso let-modal>
+    <div class="modal-header">
+    <h4 class="modal-title" id="modalPrimeiroAcesso">{{data.titulo}}</h4>
+    <button type="button" class="close" aria-label="Close" (click)="formPrimeiroAcesso.reset(); modal.dismiss('Cross click')">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <h6 class="text-danger" style="text-align: center;" >Alteração de senha obrigatória no primeiro acesso</h6>
+    
+  <div class="modal-body">
+    <form [formGroup]="formPrimeiroAcesso" (ngSubmit)="alterarSenha()">
+        <div class="row">
+            <div class="col-6 h6">Login</div>
+        </div>
+        <div class="row">
+            <div class="col-6">{{formPrimeiroAcesso.controls.login.value}}</div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-6 h6">Email</div>
+        </div>
+        <div class="row">
+            <div class="col-6">{{formPrimeiroAcesso.controls.email.value}}</div>
+        </div>
+        
+        <div class="row mt-4">
+            <div class="col-md-6 h6">Nova Senha</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="password" class="form-control" formControlName="senha" ngbAutofocus />
+                <p *ngIf="formPrimeiroAcesso.controls.senha.dirty && formPrimeiroAcesso.controls.senha.errors" class="text-danger">
+                    Mínimo 8 caractéres
+                </p>
+            </div>
+        </div>
+
+        <div class="row mt-4">
+            <div class="col-md-6 h6">Confirmar Nova Senha</div>
+        </div>
+        <div class="row">
+            <div class="col-md-6">
+                <input type="password" class="form-control" formControlName="confirmacaoSenha"/>
+                <p *ngIf="formPrimeiroAcesso.controls.confirmacaoSenha.dirty && 
+                          formPrimeiroAcesso.controls.confirmacaoSenha.errors" class="text-danger">
+                    Mínimo 8 caractéres
+                </p>
+                <p *ngIf="formPrimeiroAcesso.controls.confirmacaoSenha.dirty && 
+                          formPrimeiroAcesso.controls.confirmacaoSenha.value.length>=8 &&
+                          formPrimeiroAcesso.controls.confirmacaoSenha.value != formPrimeiroAcesso.controls.senha.value" class="text-danger">
+                    Confirmação inválida
+                </p>
+            </div>
+            <div class="col-md-1">
+                <button type="submit" class="btn btn-primary" [disabled]="formPrimeiroAcesso.invalid">Salvar</button>
+            </div>
+        </div>
+
+        
+    </form>
+  </div>
+  
+</ng-template>

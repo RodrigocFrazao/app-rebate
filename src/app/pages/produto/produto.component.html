@@ -166,9 +166,12 @@
         <div class="row">
             <div class="col-md-9">
                 <input type="text" class="form-control" formControlName="nome" ngbAutofocus />
+                <p *ngIf="formProduto.controls.nome.dirty && formProduto.controls.nome.errors" class="text-danger">
+                    Nome inválido
+                </p>
             </div>
             <div class="col-md-1">
-                <button type="submit" class="btn btn-primary">Salvar</button>
+                <button type="submit" class="btn btn-primary" [disabled]="formProduto.invalid">Salvar</button>
             </div>
         </div>
         

@@ -1,6 +1,5 @@
-import { ChangeDetectorRef, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms'
-import { Router } from '@angular/router';
 import { UsuarioDTO } from 'src/models/usuarioDTO';
 import { UsuarioService } from 'src/services/usuario/usuario.service';
 import { MessageService } from 'src/services/commons/message.service';
@@ -38,6 +37,7 @@ export class UsuarioComponent implements OnInit {
     id: new FormControl(''),
     nome: new FormControl('', [Validators.required, Validators.maxLength(50)]),
     login: new FormControl('', [Validators.required, Validators.maxLength(50)]),
+    email: new FormControl('', [Validators.required, Validators.maxLength(100), Validators.email]),
     senha: new FormControl(''),
     codigoPerfil: new FormControl('', [Validators.required]),
     isAtivo: new FormControl('')
@@ -51,7 +51,8 @@ export class UsuarioComponent implements OnInit {
   //****************************************************************************/
   constructor( private usuarioService: UsuarioService
              , private messageService: MessageService
-             , private dialog: MatDialog, private modalService: NgbModal) { }
+             , private dialog: MatDialog
+             , private modalService: NgbModal) { }
 
   //****************************************************************************/           
   ngOnInit(): void {
@@ -65,18 +66,11 @@ export class UsuarioComponent implements OnInit {
 
     //copia os dados do form pro dto
     const usuarioDTO: UsuarioDTO = {...this.formUsuario.value}
-    
-    console.log('id: ' + usuarioDTO.id);
-    console.log('nome: ' + usuarioDTO.nome);
-    console.log('login: ' + usuarioDTO.login);
-    console.log('senha: ' + usuarioDTO.senha);
-    console.log('perfil: ' + usuarioDTO.codigoPerfil);
-    console.log('ativo: ' + usuarioDTO.isAtivo);
-    
+            
     if(usuarioDTO.id){ //edição
       
       this.usuarioService.update(usuarioDTO)
-                           .subscribe(response => {
+                         .subscribe(response => {
 
         this.messageService.setSucessMessage('Usuário alterado com sucesso!');
                 
@@ -95,8 +89,10 @@ export class UsuarioComponent implements OnInit {
 
     }else{ //inclusão
       
+      usuarioDTO.isAtivo = true;
+      usuarioDTO.senha = "Rastrecall@123" //senha padrão que deverá ser alterada no primeiro acesso
       this.usuarioService.insert(usuarioDTO)
-                           .subscribe(response => {
+                         .subscribe(response => {
 
         this.messageService.setSucessMessage('Usuário incluído com sucesso!');
                 
@@ -183,12 +179,26 @@ export class UsuarioComponent implements OnInit {
       id: usuarioDTO.id, 
       nome: usuarioDTO.nome,
       login: usuarioDTO.login,
+      email: usuarioDTO.email,
       isAtivo: usuarioDTO.isAtivo,
       codigoPerfil: usuarioDTO.codigoPerfil,
       senha: usuarioDTO.senha
     });
 
     this.modalService.open(content, {ariaLabelledBy: 'modalUsuario'});
+  }
+
+
+  getNomePerfil(codigo: number): string{
+
+
+    for(let perfil of this.perfis){
+      
+      if(codigo == perfil.codigo){
+        return perfil.nome;
+      }
+    }
+    return '';
   }
 
 

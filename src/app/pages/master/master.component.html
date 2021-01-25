@@ -8,7 +8,7 @@
         </li>
         <li class="nav-item">
             <a class="nav-link pr-3">
-                <i-bs name="person" title="Meus dados" ngbTooltip="" width="25" height="25"></i-bs>
+                <i-bs name="person" title="Meus dados" ngbTooltip="" width="25" height="25" data-toggle="collapse" data-target="#navBarUser" aria-controls="navBarUser" aria-expanded="false" aria-label="Toggle navigation"></i-bs>
             </a>
         </li>
     </ul>
@@ -16,6 +16,7 @@
         <span class="navbar-toggler-icon"></span>
     </button>
 </nav>
+
 <div class="collapse bg-dark" id="navBarOperations" >
     
     <div class="row pt-5 pb-2">
@@ -60,9 +61,106 @@
     </div>
 </div>
 
+<div class="collapse bg-dark float-right" id="navBarUser" >
+    
+    <div class="row pt-5 pr-5 pl-1">
+        <div class="col ml-2">
+            <i-bs name="info-circle" style="color:white" title="Meus dados" ngbTooltip="" width="15" height="15" ></i-bs>
+            <a class="text-white pl-2 pt-2" routerLink="/categoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Meus dados</a>
+        </div>               
+    </div>
+    <div class="row pt-3 pr-5 pl-1">
+        <div class="col ml-2">
+            <i-bs name="lock" style="color:white" title="Senha" ngbTooltip="" width="15" height="15" ></i-bs>
+            <a class="text-white pl-2 pt-2" onclick="$('#navBarOperations').collapse('hide');"  (click)="openModalAlterarSenha(modalAlterarSenha)">Alterar senha</a>
+        </div>
+    </div> 
+    <div class="row pt-3 pb-5 pr-5 pl-1">
+        <div class="col ml-2">
+            <i-bs name="box-arrow-right" style="color:white" title="Senha" ngbTooltip="" width="15" height="15" ></i-bs>
+            <a class="text-white pl-2 pt-2" routerLink="/categoria" routerLinkActive="selected" onclick="$('#navBarOperations').collapse('hide');">Sair</a>
+        </div>
+    </div> 
+</div>
+
 <!--div para exibição de mensagens-->
 <p *ngFor="let alert of alerts">
     <ngb-alert [type]="alert.type" (closed)="closeAlert(alert)">{{ alert.message }}</ngb-alert>
 </p>
+
+
+<ng-template #modalAlterarSenha let-modal>
+    <div class="modal-header">
+        <h4 class="modal-title" id="modalAlterarSenha">{{data.titulo}}</h4>
+        <button type="button" class="close" aria-label="Close" (click)="formAlterarSenha.reset(); modal.dismiss('Cross click')">
+        <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+    
+    <div class="modal-body">
+        <form [formGroup]="formAlterarSenha" (ngSubmit)="alterarSenha()">
+            <div class="row">
+                <div class="col-6 h6">Login</div>
+            </div>
+            <div class="row">
+                <div class="col-6">{{formAlterarSenha.controls.login.value}}</div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-6 h6">Email</div>
+            </div>
+            <div class="row">
+                <div class="col-6">{{formAlterarSenha.controls.email.value}}</div>
+            </div>
+            
+            <div class="row mt-4">
+                <div class="col-md-6 h6">Senha Atual</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="password" class="form-control" formControlName="senhaAtual" ngbAutofocus />
+                    <p *ngIf="formAlterarSenha.controls.senhaAtual.dirty && formAlterarSenha.controls.senhaAtual.errors" class="text-danger">
+                        Mínimo 8 caractéres
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 h6">Nova Senha</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="password" class="form-control" formControlName="novaSenha" ngbAutofocus />
+                    <p *ngIf="formAlterarSenha.controls.novaSenha.dirty && formAlterarSenha.controls.novaSenha.errors" class="text-danger">
+                        Mínimo 8 caractéres
+                    </p>
+                </div>
+            </div>
+
+            <div class="row mt-4">
+                <div class="col-md-6 h6">Confirmar Nova Senha</div>
+            </div>
+            <div class="row">
+                <div class="col-md-6">
+                    <input type="password" class="form-control" formControlName="confirmacaoNovaSenha"/>
+                    <p *ngIf="formAlterarSenha.controls.confirmacaoNovaSenha.dirty && 
+                    formAlterarSenha.controls.confirmacaoNovaSenha.errors" class="text-danger">
+                        Mínimo 8 caractéres
+                    </p>
+                    <p *ngIf="formAlterarSenha.controls.confirmacaoNovaSenha.dirty && 
+                            formAlterarSenha.controls.confirmacaoNovaSenha.value.length>=8 &&
+                            formAlterarSenha.controls.confirmacaoNovaSenha.value != formAlterarSenha.controls.novaSenha.value" class="text-danger">
+                        Confirmação inválida
+                    </p>
+                </div>
+                <div class="col-md-1">
+                    <button type="submit" class="btn btn-primary" [disabled]="formAlterarSenha.invalid">Salvar</button>
+                </div>
+            </div>            
+        </form>
+  </div>
+  
+</ng-template>
+
 
 <router-outlet></router-outlet>

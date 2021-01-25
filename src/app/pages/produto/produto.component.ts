@@ -46,7 +46,7 @@ export class ProdutoComponent implements OnInit {
 
   formProduto: FormGroup = new FormGroup({
     id: new FormControl(''),
-    nome: new FormControl(''),
+    nome: new FormControl('', Validators.required),
     idCategoria: new FormControl('', Validators.required),
     nomeCategoria: new FormControl(''),
     idSubcategoria: new FormControl('', Validators.required),

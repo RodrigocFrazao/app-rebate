@@ -17,8 +17,7 @@ export class HomeComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
-    const par = this.activatedRoute.snapshot.paramMap.get('parametro');
-    console.log(par);
+    
   }
 
   goToLogin() {
