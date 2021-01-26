@@ -22,8 +22,6 @@ export class UsuarioService {
 
   update(usuarioDTO: UsuarioDTO) : Observable<any> {
 
-    console.log('usuarioDTO: ' + usuarioDTO);
-
     return this.http.put<any>( API_CONFIG.baseURL+'/usuarios/' + usuarioDTO.id
                              , usuarioDTO
                              , { observe: 'response' });
@@ -37,6 +35,12 @@ export class UsuarioService {
 
   }
 
+  find(id: number) : Observable<UsuarioDTO> {
+
+    return this.http.get<UsuarioDTO>( API_CONFIG.baseURL+'/usuarios/' + id);
+
+  }
+
   findByFilter(nome: string) : Observable<UsuarioDTO[]> {
 
     return this.http.get<UsuarioDTO[]>( API_CONFIG.baseURL+'/usuarios/filtro?nome='+nome+'&login='+nome);
@@ -46,6 +50,13 @@ export class UsuarioService {
   delete(id: number) : Observable<void> {
 
     return this.http.delete<void>( `${API_CONFIG.baseURL}${'/usuarios/'}${id}`);
+
+  }
+
+  changePassword(id: number, oldPassword: string, newPassword: string){
+    
+    return this.http.put<any>( API_CONFIG.baseURL+'/usuarios/alterarSenha?idUsuario='+id+'&senhaAntiga='+oldPassword+'&novaSenha='+newPassword
+                             , { observe: 'response' });
 
   }
 

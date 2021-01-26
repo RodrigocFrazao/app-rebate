@@ -80,18 +80,16 @@ export class MasterComponent implements OnInit {
   }
 
   
+  
+
+
   //****************************************************************************/
   alterarSenha(){
 
-    //copia os dados do form pro dto
-    const usuarioDTO: UsuarioDTO = {...this.formAlterarSenha.value}
-    
-    
-
-    if(usuarioDTO.id){ //edição
-      
-      this.usuarioService.update(usuarioDTO)
-                         .subscribe(response => {
+    this.usuarioService.changePassword( this.formAlterarSenha.controls.id.value
+                                      , this.formAlterarSenha.controls.senhaAtual.value
+                                      , this.formAlterarSenha.controls.novaSenha.value)
+                       .subscribe(response => {
 
         
         this.alerts = [{type: 'success',message: "Senha alterada com sucesso!"}];
@@ -100,46 +98,16 @@ export class MasterComponent implements OnInit {
       },
       error => {
 
-        this.alerts = [{type: 'danger',message: "Ocorreu um erro ao alterar a senha. Por favor tente novamente.<br> " + error.message }];
+        this.alerts = [{type: 'danger',message: "Ocorreu um erro ao alterar a senha. Por favor tente novamente. ERRO: " + error.error }];
         
       }); 
-
-
-    }
+    
+    
 
     this.modalService.dismissAll();    
 
   }
 
-
-  //****************************************************************************/
-  alterarSenha(){
-
-    //copia os dados do form pro dto
-    const usuarioDTO: UsuarioDTO = {...this.formAlterarSenha.value}
-    
-    
-    if(usuarioDTO.id){ //edição
-      
-      this.usuarioService.update(usuarioDTO)
-                         .subscribe(response => {
-
-        
-        this.alerts = [{type: 'success',message: "Senha alterada com sucesso!"}];
-                
-        
-      },
-      error => {
-
-        this.alerts = [{type: 'danger',message: "Ocorreu um erro ao alterar a senha. Por favor tente novamente.<br> " + error.message }];
-        
-      }); 
-
-
-    }
-
-    this.modalService.dismissAll();    
-
-  }
+  
 
 }

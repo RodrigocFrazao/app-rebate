@@ -182,7 +182,6 @@ export class LoginComponent implements OnInit {
         
       }); 
 
-
     }
 
     this.modalService.dismissAll();    
